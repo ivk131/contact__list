@@ -1,17 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useRoutes } from "react-router-dom";
 import HomePage from "./components/HomePage";
-import router from "./routes";
 
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  Routes,
-  BrowserRouter,
-} from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import AddContactForm from "./components/AddContactForm";
 import Header from "./components/Header";
 

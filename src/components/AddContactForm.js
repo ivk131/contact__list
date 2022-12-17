@@ -39,13 +39,14 @@ const MenuProps = {
 };
 
 function AddContactForm({ updateState, setUpdateState }) {
-  // console.log(" updateState, setUpdateState", updateState, setUpdateState);
   const [contactDetails, setContactDetails] = useState(initialValue);
   const [addressType, setAddressType] = useState(["Home", "Office"]);
   const [contactDetailsList, setContactDetailsList] = useState([]);
+  const [idForUpdate, setidForUpdate] = useState("");
 
   useEffect(() => {
     let idForUpdate = localStorage.getItem("idForUpdate");
+    setidForUpdate(idForUpdate);
     if (idForUpdate != null) {
       let contacts = JSON.parse(localStorage.getItem("array"));
       let filteredContact = contacts.filter(item => item.id === idForUpdate);
@@ -72,9 +73,6 @@ function AddContactForm({ updateState, setUpdateState }) {
     let idForUpdate = localStorage.getItem("idForUpdate");
 
     if (idForUpdate != null) {
-      debugger;
-
-      console.log("contactDetails", contactDetails);
       let filteredContact = users.map(contact =>
         contact.id === idForUpdate
           ? {
@@ -88,9 +86,7 @@ function AddContactForm({ updateState, setUpdateState }) {
           : contact
       );
 
-      console.log("updated-------------", filteredContact);
       localStorage.setItem("array", JSON.stringify([...filteredContact]));
-      // localStorage.removeItem("idForUpdate");
       setContactDetails({
         name: "",
         phone: "",
@@ -153,6 +149,7 @@ function AddContactForm({ updateState, setUpdateState }) {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
+                    type="number"
                     name="phone"
                     value={contactDetails.phone}
                     onChange={e =>
@@ -192,20 +189,6 @@ function AddContactForm({ updateState, setUpdateState }) {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                  {/* <TextField
-                  fullWidth
-                  name="isWhatsapp"
-                  value={contactDetails.isWhatsapp}
-                  onChange={e =>
-                    setContactDetails({
-                      ...contactDetails,
-                      isWhatsapp: e.target.value,
-                    })
-                  }
-                  label="Ratio button"
-                  size="small"
-                /> */}
-
                   <FormControl>
                     <FormLabel id="demo-radio-buttons-group-label">
                       IsWhatsapp
@@ -259,8 +242,14 @@ function AddContactForm({ updateState, setUpdateState }) {
                     type="submit"
                     variant="contained"
                     onClick={handleSubmit}
+                    disabled={
+                      contactDetails.name === "" ||
+                      contactDetails.phone === "" ||
+                      contactDetails.type === "" ||
+                      contactDetails.isWhatsapp === null
+                    }
                   >
-                    Add Contact
+                    {idForUpdate != null ? "Update Contact" : "Add Contact"}
                   </Button>
                 </Grid>
               </Grid>

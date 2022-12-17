@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -22,11 +24,13 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
 
-          <Typography variant="h6" component="div">
+          <Typography variant="h6" component={Link} to="/">
             Invedus
           </Typography>
           <Box flexGrow={1} />
-          <Button color="inherit">Login</Button>
+          <IconButton>
+            <AccountCircleIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </Box>
